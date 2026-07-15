@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./theme/ThemeToggle";
 import { navLinks, siteConfig } from "@/lib/site-data";
 
 export function Navbar() {
@@ -61,6 +62,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle className="hidden sm:grid" />
           <Link
             href={siteConfig.primaryCta.href}
             className="hidden rounded-full border border-mw-mint/40 bg-mw-mint/10 px-5 py-2 text-xs font-medium uppercase tracking-widest text-mw-mint transition hover:bg-mw-mint hover:text-mw-ink sm:inline-block"
@@ -112,10 +114,16 @@ export function Navbar() {
                 )}
               </div>
             ))}
+
+            <div className="mt-3 flex items-center justify-between rounded-lg px-2 py-2">
+              <span className="text-sm font-medium text-white/60">Appearance</span>
+              <ThemeToggle />
+            </div>
+
             <Link
               href={siteConfig.primaryCta.href}
               onClick={() => setOpen(false)}
-              className="mt-3 rounded-full bg-mw-mint px-5 py-2.5 text-center text-sm font-semibold text-mw-ink"
+              className="mt-1 rounded-full bg-mw-mint px-5 py-2.5 text-center text-sm font-semibold text-mw-ink"
             >
               {siteConfig.primaryCta.label}
             </Link>

@@ -11,6 +11,33 @@
   --color-mw-paper: #f7f9f8;
   --color-mw-line: #dfe7e3;
   --color-mw-void: #020604;
+
+  /* Watermark tint + strength — overridden per-theme below. */
+  --mw-watermark-color: var(--color-mw-primary);
+  --mw-watermark-opacity: 0.05;
+}
+
+/*
+  Dark theme — swaps the *neutral* surface tokens (background, foreground,
+  ink, paper, line) so body copy, borders, and card surfaces flip.
+  mw-secondary / mw-mint / mw-void stay constant (brand accents shouldn't
+  change with theme). mw-primary is also flipped: it's used almost
+  exclusively as heading text color against these same surfaces, so it
+  needs to stay legible too — the couple of places it was used as a solid
+  fill instead (avatar, one CTA band) were switched to a fixed hex so they
+  don't go illegible when this flips.
+*/
+.dark {
+  --background: #050f0a;
+  --foreground: #eef7f1;
+
+  --color-mw-primary: #7fd9b4;
+  --color-mw-ink: #eef7f1;
+  --color-mw-paper: #0d221a;
+  --color-mw-line: rgba(255, 255, 255, 0.14);
+
+  --mw-watermark-color: var(--color-mw-mint);
+  --mw-watermark-opacity: 0.07;
 }
 
 @theme inline {
@@ -34,6 +61,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   font-weight: 600;
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 h1, h2, h3, h4 {
@@ -72,10 +100,8 @@ h1, h2, h3, h4 {
 
 .mw-glow-grid {
   background-image:
-    linear-gradient(rgba(127, 217, 180, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(127, 217, 180, 0.08) 1px, transparent 1px),
     radial-gradient(120% 140% at 15% 0%, #163a2c 0%, #071912 55%, #050f0a 100%);
-  background-size: 48px 48px, 48px 48px, auto;
+  background-size: auto;
 }
 
 /* Continuous flow wrapper — groups several homepage sections so their
@@ -268,6 +294,51 @@ html {
   animation: mw-travel-x 5s ease-in-out infinite;
 }
 
+/* ---------------------------------------------------------------------
+   Page watermark — large, faint MAWKISH mark fixed behind every non-home
+   page. Tint + strength come from --mw-watermark-color/--mw-watermark-
+   opacity (see :root / .dark above), so it recolors automatically when
+   the theme toggles, with no JS re-render needed.
+   --------------------------------------------------------------------- */
+.mw-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mw-watermark::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(1400px, 165vw);
+  aspect-ratio: 1600 / 1076;
+  transform: translate(-50%, -50%);
+  background-color: var(--mw-watermark-color);
+  -webkit-mask-image: url("/images/brand/watermark-mark.png");
+  mask-image: url("/images/brand/watermark-mark.png");
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  opacity: 0;
+  animation: mw-watermark-drift 24s ease-in-out infinite;
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.6s ease;
+}
+
+.mw-watermark.mw-in::before {
+  opacity: var(--mw-watermark-opacity);
+}
+
+@keyframes mw-watermark-drift {
+  0%, 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  50% { transform: translate(calc(-50% + 14px), calc(-50% - 10px)) scale(1.03) rotate(0.6deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mw-reveal {
     opacity: 1;
@@ -289,5 +360,11 @@ html {
   }
   .mw-travel-dot {
     display: none;
+  }
+  .mw-watermark::before {
+    animation: none;
+  }
+  body {
+    transition: none;
   }
 }

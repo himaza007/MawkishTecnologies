@@ -3,6 +3,8 @@ import { Inter, Bebas_Neue, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { PageWatermark } from "@/components/PageWatermark";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -46,6 +48,11 @@ export const metadata: Metadata = {
   },
 };
 
+// Runs before hydration so the correct theme class is present on first
+// paint — no flash of the wrong theme. Kept inline (not a separate file)
+// so it's part of the initial HTML and executes synchronously.
+const themeInitScript = `(function(){try{var stored=localStorage.getItem('mw-theme');var isDark=stored?stored==='dark':true;if(isDark){document.documentElement.classList.add('dark');}document.documentElement.style.colorScheme=isDark?'dark':'light';}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,12 +62,20 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white text-mw-ink">
-        <div aria-hidden="true" className="mw-scanline" />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="min-h-full flex flex-col">
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <ThemeProvider>
+          <div aria-hidden="true" className="mw-scanline" />
+          <PageWatermark />
+          <div className="relative z-10 flex min-h-full flex-1 flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
