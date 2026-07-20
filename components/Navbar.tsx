@@ -21,10 +21,17 @@ export function Navbar() {
     <header
       className={`sticky top-0 z-50 border-b transition-all duration-500 ${
         scrolled
-          ? "border-white/10 bg-mw-ink/80 shadow-lg shadow-black/20 backdrop-blur-xl"
-          : "border-transparent bg-mw-ink/40 backdrop-blur-sm"
+          ? "border-mw-mint/10 bg-mw-void/85 shadow-lg shadow-black/30 backdrop-blur-xl"
+          : "border-transparent bg-mw-void/50 backdrop-blur-sm"
       }`}
     >
+      {/* Thin gradient line at the very bottom edge — reads once scrolled, gives the bar a finished, deliberate edge instead of just stopping. */}
+      <div
+        className={`pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-mw-mint/40 to-transparent transition-opacity duration-700 ${
+          scrolled ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Logo tone="light" />
 
@@ -33,7 +40,7 @@ export function Navbar() {
             <div key={link.href} className="group relative">
               <Link
                 href={link.href}
-                className="flex items-center gap-1 text-sm font-medium text-white/80 transition hover:text-white"
+                className="flex items-center gap-1 py-1 text-sm font-medium text-white/80 transition hover:text-white"
               >
                 {link.label}
                 {link.children && (
@@ -42,9 +49,12 @@ export function Navbar() {
                   </svg>
                 )}
               </Link>
+              {/* Underline sweep on hover */}
+              <span className="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-mw-mint transition-transform duration-300 ease-out group-hover:scale-x-100" />
+
               {link.children && (
                 <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100">
-                  <div className="w-56 rounded-xl border border-white/10 bg-mw-primary/95 p-2 shadow-xl backdrop-blur">
+                  <div className="w-56 rounded-xl border border-white/10 bg-[#071912]/95 p-2 shadow-xl backdrop-blur">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
@@ -87,7 +97,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-white/10 bg-mw-ink px-6 py-4 lg:hidden">
+        <div className="border-t border-white/10 bg-mw-void px-6 py-4 lg:hidden">
           <nav className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <div key={link.href}>

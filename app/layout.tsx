@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { PageWatermark } from "@/components/PageWatermark";
+import { SiteLoader } from "@/components/SiteLoader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -68,6 +69,11 @@ export default function RootLayout({
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <ThemeProvider>
+          {/* Splash sits above absolutely everything, including the navbar,
+              and fades out once the page is ready — the navbar is already
+              rendered underneath it the whole time, so the fade genuinely
+              reveals it rather than the navbar popping in afterwards. */}
+          <SiteLoader />
           <div aria-hidden="true" className="mw-scanline" />
           <PageWatermark />
           <div className="relative z-10 flex min-h-full flex-1 flex-col">
