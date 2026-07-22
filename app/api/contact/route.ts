@@ -29,17 +29,38 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 });
   }
 
-  // NOTE: no email/CRM lead-routing service is wired up yet — this is where
-  // an SMTP provider or CRM webhook (e.g. Salesforce Web-to-Lead) would be
-  // called using credentials from environment variables.
-  console.log("New Mawkish Technologies lead:", {
-    name,
-    email,
-    company,
-    intent,
-    message,
-    receivedAt: new Date().toISOString(),
-  });
+  const backendUrl = process.env.BACKEND_URL;
+  if (!backendUrl) {
+    console.error("BACKEND_URL is not set — cannot forward contact form submission.");
+    return NextResponse.json(
+      { error: "Server misconfiguration. Please try again later." },
+      { status: 500 }
+    );
+  }
 
-  return NextResponse.json({ ok: true });
+  try {
+    const backendRes = await fetch(`${backendUrl}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, company, intent, message }),
+      cache: "no-store",
+    });
+
+    const data = await backendRes.json().catch(() => ({}));
+
+    if (!backendRes.ok) {
+      return NextResponse.json(
+        { error: data.error || data.message || "Something went wrong. Please try again." },
+        { status: backendRes.status }
+      );
+    }
+
+    return NextResponse.json({ ok: true, ...data });
+  } catch (err) {
+    console.error("Failed to reach backend contact service:", err);
+    return NextResponse.json(
+      { error: "We couldn't reach our server. Please try again shortly." },
+      { status: 502 }
+    );
+  }
 }
