@@ -15,7 +15,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <LogoMark className="h-9 w-14" />
+              <LogoMark className="h-10 w-10" />
               <span className="font-display tracking-wide text-base text-white">MAWKISH TECHNOLOGIES</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed">

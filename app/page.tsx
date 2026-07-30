@@ -36,15 +36,9 @@ export default function Home() {
 
       <MarqueeStrip />
 
-      {/* Story + stats — full-bleed background photo, count-up numbers */}
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/about_pic.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="relative mx-auto max-w-7xl px-6 pb-4 pt-24 lg:px-8">
+      {/* Story + stats — black backdrop, green CSS glow, count-up numbers */}
+      <section className="mw-glow-section relative flex min-h-screen flex-col justify-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pb-4 pt-24 lg:px-8">
           <Reveal className="mx-auto max-w-xl text-center lg:ml-auto lg:mr-0 lg:text-right">
             <SectionTag>Who We Are</SectionTag>
             <h2 className="mt-4 font-display text-4xl text-white sm:text-5xl lg:text-6xl">Mawkish Technologies</h2>
@@ -61,7 +55,7 @@ export default function Home() {
             </Link>
           </Reveal>
         </div>
-        <div className="relative mx-auto max-w-5xl px-6 pb-20 pt-16 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-5xl px-6 pb-20 pt-16 lg:px-8">
           <Reveal delay={150}>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {stats.map((s) => (
@@ -83,16 +77,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Platforms We Grow With — full-bleed background photo, links right-aligned */}
-      <section className="relative flex min-h-screen flex-col justify-center overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/bg-image3.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-mw-void/70 via-transparent to-transparent" />
-        <div className="relative mx-auto w-full max-w-7xl px-6 py-24 lg:px-8">
+      {/* Platforms We Grow With — black backdrop, green CSS glow, links right-aligned */}
+      <section className="mw-glow-section mw-glow-section--reverse relative flex min-h-screen flex-col justify-center">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 lg:px-8">
           <div className="ml-auto max-w-md">
             <Reveal className="text-right">
               <SectionTag>Platforms We Grow With</SectionTag>

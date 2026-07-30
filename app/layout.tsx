@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Bebas_Neue, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -7,22 +7,33 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { PageWatermark } from "@/components/PageWatermark";
 import { SiteLoader } from "@/components/SiteLoader";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Pliant — main/heading text. Self-hosted: not yet in next/font/google's
+// bundled font list (recently added to Google Fonts).
+const pliant = localFont({
+  variable: "--font-pliant",
+  src: [
+    { path: "../public/fonts/Pliant-Variable.ttf", style: "normal" },
+    { path: "../public/fonts/Pliant-Italic-Variable.ttf", style: "italic" },
+  ],
+  display: "swap",
 });
 
-const bebasNeue = Bebas_Neue({
-  variable: "--font-bebas-neue",
-  subsets: ["latin"],
-  weight: ["400"],
+// Libre Baskerville — sub text / small text (body copy, labels, captions).
+// Self-hosted so the whole type system has no runtime dependency on
+// fonts.googleapis.com.
+const libreBaskerville = localFont({
+  variable: "--font-libre-baskerville",
+  src: [
+    { path: "../public/fonts/LibreBaskerville-Variable.ttf", style: "normal" },
+    { path: "../public/fonts/LibreBaskerville-Italic-Variable.ttf", style: "italic" },
+  ],
+  display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = localFont({
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  src: [{ path: "../public/fonts/JetBrainsMono-Variable.ttf", style: "normal" }],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -62,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${pliant.variable} ${libreBaskerville.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
