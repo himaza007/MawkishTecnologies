@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -7,15 +8,11 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { PageWatermark } from "@/components/PageWatermark";
 import { SiteLoader } from "@/components/SiteLoader";
 
-// Pliant — main/heading text. Self-hosted: not yet in next/font/google's
-// bundled font list (recently added to Google Fonts).
-const pliant = localFont({
-  variable: "--font-pliant",
-  src: [
-    { path: "../public/fonts/Pliant-Variable.ttf", style: "normal" },
-    { path: "../public/fonts/Pliant-Italic-Variable.ttf", style: "italic" },
-  ],
-  display: "swap",
+// Poppins — main/heading text.
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 // Libre Baskerville — sub text / small text (body copy, labels, captions).
@@ -73,7 +70,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${pliant.variable} ${libreBaskerville.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${libreBaskerville.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

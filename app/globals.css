@@ -45,8 +45,8 @@
   --color-foreground: var(--foreground);
   /* Libre Baskerville — sub text / small text (body copy, labels, captions). */
   --font-sans: var(--font-libre-baskerville), Georgia, serif;
-  /* Pliant — main/heading text. */
-  --font-display: var(--font-pliant), var(--font-sans), sans-serif;
+  /* Unbounded — main/heading text. */
+  --font-display: var(--font-unbounded), var(--font-sans), sans-serif;
   --font-mono: var(--font-jetbrains-mono);
 
   --color-mw-primary: var(--color-mw-primary);
