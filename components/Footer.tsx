@@ -56,19 +56,6 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40">Services</h3>
-            <ul className="mt-4 space-y-2.5 text-sm">
-              {services.slice(0, 5).map((s) => (
-                <li key={s.slug}>
-                  <Link href={`/services/${s.slug}`} className="transition hover:text-mw-mint">
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-white/40">Industries</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               {industries.slice(0, 5).map((i) => (

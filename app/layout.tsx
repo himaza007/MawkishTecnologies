@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Playfair_Display } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -8,24 +8,18 @@ import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { PageWatermark } from "@/components/PageWatermark";
 import { SiteLoader } from "@/components/SiteLoader";
 
-// Playfair Display — main/heading text.
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair-display",
+// Montserrat — main/heading text. Clean geometric letterforms.
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-// Libre Baskerville — sub text / small text (body copy, labels, captions).
-// Self-hosted so the whole type system has no runtime dependency on
-// fonts.googleapis.com.
-const libreBaskerville = localFont({
-  variable: "--font-libre-baskerville",
-  src: [
-    { path: "../public/fonts/LibreBaskerville-Variable.ttf", style: "normal" },
-    { path: "../public/fonts/LibreBaskerville-Italic-Variable.ttf", style: "italic" },
-  ],
-  display: "swap",
+// Inter — sub text / small text / body copy. Paired with Montserrat.
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const jetbrainsMono = localFont({
@@ -71,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfairDisplay.variable} ${libreBaskerville.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">

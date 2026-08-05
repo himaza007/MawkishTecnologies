@@ -35,9 +35,7 @@ export default function ServicesPage() {
             >
               <h3 className="font-display text-xl font-bold text-mw-primary">{s.name}</h3>
               <p className="mt-3 text-sm leading-relaxed text-mw-ink/65">{s.summary}</p>
-              <span className="mt-5 inline-block text-sm font-semibold text-mw-secondary">
-                Learn more &rarr;
-              </span>
+
             </Link>
           ))}
         </div>
@@ -58,9 +56,7 @@ export default function ServicesPage() {
               >
                 <h3 className="font-display text-lg font-bold text-mw-primary">{s.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-mw-ink/65">{s.summary}</p>
-                <span className="mt-4 inline-block text-sm font-semibold text-mw-secondary opacity-0 transition group-hover:opacity-100">
-                  Learn more &rarr;
-                </span>
+
               </Link>
             ))}
           </div>

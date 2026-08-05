@@ -17,16 +17,6 @@
   --mw-watermark-opacity: 0.05;
 }
 
-/*
-  Dark theme — swaps the *neutral* surface tokens (background, foreground,
-  ink, paper, line) so body copy, borders, and card surfaces flip.
-  mw-secondary / mw-mint / mw-void stay constant (brand accents shouldn't
-  change with theme). mw-primary is also flipped: it's used almost
-  exclusively as heading text color against these same surfaces, so it
-  needs to stay legible too — the couple of places it was used as a solid
-  fill instead (avatar, one CTA band) were switched to a fixed hex so they
-  don't go illegible when this flips.
-*/
 .dark {
   --background: #050f0a;
   --foreground: #eef7f1;
@@ -43,11 +33,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Libre Baskerville — sub text / small text (body copy, labels, captions). */
-  --font-sans: var(--font-libre-baskerville), Georgia, serif;
-/* Playfair Display — main/heading text. */
-  --font-display: var(--font-playfair-display), var(--font-sans), sans-serif;
-  --font-mono: var(--font-jetbrains-mono);
+/* Inter — sub text / small text. */
+  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
+  /* Montserrat — main/heading text. */
+  --font-display: var(--font-montserrat), var(--font-sans), sans-serif;
 
   --color-mw-primary: var(--color-mw-primary);
   --color-mw-secondary: var(--color-mw-secondary);
@@ -68,7 +57,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display), var(--font-sans), sans-serif;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
@@ -137,6 +126,26 @@ h1, h2, h3, h4 {
     radial-gradient(46% 60% at 82% 24%, rgba(127, 217, 180, 0.22) 0%, rgba(0, 0, 0, 0) 68%),
     radial-gradient(38% 50% at 15% 78%, rgba(28, 107, 81, 0.28) 0%, rgba(0, 0, 0, 0) 70%),
     radial-gradient(70% 90% at 50% 100%, rgba(17, 66, 50, 0.35) 0%, rgba(0, 0, 0, 0) 75%);
+}
+
+/* Same idea as .mw-glow-section but tuned for short strip bands (logo
+   rows, marquees) instead of full-height sections — wider, flatter glow
+   spots so they don't look like blown-out spotlights in a shallow band. */
+.mw-glow-strip {
+  position: relative;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.mw-glow-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(60% 140% at 12% 50%, rgba(127, 217, 180, 0.14) 0%, rgba(0, 0, 0, 0) 70%),
+    radial-gradient(60% 140% at 88% 50%, rgba(28, 107, 81, 0.16) 0%, rgba(0, 0, 0, 0) 70%);
 }
 
 /* Hero depth scrim — literal values so it never depends on CSS-variable
@@ -359,6 +368,20 @@ html {
    --------------------------------------------------------------------- */
 .mw-loading-lock {
   overflow: hidden;
+}
+
+
+/* Keep the navbar fully hidden for the entire loader lifetime (loading +
+   exit fade), then fade it in on its own once mw-loading-lock is removed.
+   Without this, the loader's opacity fade-out briefly blends with the
+   navbar's light pill underneath it, reading as a washed-out gray blob. */
+header {
+  transition: opacity 0.6s ease;
+}
+
+.mw-loading-lock header {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mw-loader {

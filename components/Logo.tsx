@@ -13,7 +13,7 @@ export function LogoMark({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/images/brand/logo-icon.png"
+      src="/images/brand/logo-mark.png"
       alt=""
       aria-hidden="true"
       className={`${className} object-contain`}
@@ -25,9 +25,8 @@ export function LogoMark({
 export function Logo({ tone = "light" }: { tone?: "light" | "dark" }) {
   return (
     <Link href="/" className="flex shrink-0 items-center gap-3" aria-label="Mawkish Technologies — home">
-      <LogoMark tone={tone} className="h-11 w-11 sm:h-12 sm:w-12" />
+      <LogoMark tone={tone} className="h-14 w-14 sm:h-16 sm:w-16" />
       <span className="font-display text-base leading-none tracking-wide text-white sm:text-lg">
-        Mawkish Technologies
       </span>
     </Link>
   );

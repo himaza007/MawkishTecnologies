@@ -1,121 +1,100 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Logo } from "./Logo";
-import { ThemeToggle } from "./theme/ThemeToggle";
 import { navLinks, siteConfig } from "@/lib/site-data";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-all duration-500 ${
-        scrolled
-          ? "border-mw-mint/10 bg-mw-void/85 shadow-lg shadow-black/30 backdrop-blur-xl"
-          : "border-transparent bg-mw-void/50 backdrop-blur-sm"
-      }`}
-    >
-      {/* Thin gradient line at the very bottom edge — reads once scrolled, gives the bar a finished, deliberate edge instead of just stopping. */}
-      <div
-        className={`pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-mw-mint/40 to-transparent transition-opacity duration-700 ${
-          scrolled ? "opacity-100" : "opacity-0"
-        }`}
-      />
-
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+    <header className="sticky top-0 z-50">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
         <Logo tone="light" />
 
-        <nav className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((link) => (
-            <div key={link.href} className="group relative">
-              <Link
-                href={link.href}
-                className="flex items-center gap-1 py-1 text-sm font-medium text-white/80 transition hover:text-white"
-              >
-                {link.label}
+        {/* Right cluster: Unified floating pill matching reference UI */}
+        <div className="hidden lg:flex items-center rounded-2xl border border-white/20 bg-white/70 p-1.5 backdrop-blur-md shadow-sm">
+          <nav className="flex items-center gap-1 px-3">
+            {navLinks.map((link) => (
+              <div key={link.href} className="group relative">
+                <Link
+                  href={link.href}
+                  className="flex items-center gap-1 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-neutral-800 transition hover:text-black"
+                >
+                  {link.label}
+                  {link.children && (
+                    <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none">
+                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  )}
+                </Link>
+
                 {link.children && (
-                  <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none">
-                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  </svg>
-                )}
-              </Link>
-              {/* Underline sweep on hover */}
-              <span className="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-mw-mint transition-transform duration-300 ease-out group-hover:scale-x-100" />
-
-              {link.children && (
-                <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100">
-                  <div className="w-56 rounded-xl border border-white/10 bg-[#071912]/95 p-2 shadow-xl backdrop-blur">
-                    {link.children.map((child) => (
-                      <Link
-                        key={child.href}
-                        href={child.href}
-                        className="block rounded-lg px-3 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
+                  <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100">
+                    <div className="w-56 rounded-xl border border-black/5 bg-white p-2 shadow-xl">
+                      {link.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block rounded-lg px-3 py-2 text-sm text-neutral-700 transition hover:bg-neutral-100"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
+                )}
+              </div>
+            ))}
+          </nav>
 
-        <div className="flex items-center gap-3">
-          <ThemeToggle className="hidden sm:grid" />
           <Link
             href={siteConfig.primaryCta.href}
-            className="hidden rounded-full border border-mw-mint/40 bg-mw-mint/10 px-5 py-2 text-xs font-medium uppercase tracking-widest text-mw-mint transition hover:bg-mw-mint hover:text-mw-ink sm:inline-block"
+            className="rounded-xl bg-[#1a2323] px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white transition hover:bg-black"
           >
-            Get In Touch
+            {siteConfig.primaryCta.label}
           </Link>
-          <button
-            className="grid h-10 w-10 place-items-center rounded-lg border border-white/15 text-white lg:hidden"
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Toggle menu"
-            aria-expanded={open}
-          >
-            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none">
-              {open ? (
-                <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              ) : (
-                <path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              )}
-            </svg>
-          </button>
         </div>
+
+        {/* Mobile trigger */}
+        <button
+          className="grid h-11 w-11 place-items-center rounded-xl border border-white/20 bg-white/80 text-neutral-800 shadow-sm backdrop-blur lg:hidden"
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Toggle menu"
+          aria-expanded={open}
+        >
+          <svg className="h-5 w-5" viewBox="0 0 20 20" fill="none">
+            {open ? (
+              <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            ) : (
+              <path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            )}
+          </svg>
+        </button>
       </div>
 
+      {/* Mobile Drawer */}
       {open && (
-        <div className="border-t border-white/10 bg-mw-void px-6 py-4 lg:hidden">
+        <div className="mx-6 rounded-2xl border border-white/20 bg-white/95 p-4 shadow-xl backdrop-blur lg:hidden">
           <nav className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <div key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-lg px-2 py-2.5 text-sm font-medium text-white/85 hover:bg-white/5"
+                  className="block rounded-lg px-3 py-2.5 text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:bg-neutral-100"
                 >
                   {link.label}
                 </Link>
                 {link.children && (
-                  <div className="ml-3 border-l border-white/10 pl-3">
+                  <div className="ml-3 border-l border-neutral-200 pl-3">
                     {link.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
                         onClick={() => setOpen(false)}
-                        className="block rounded-lg px-2 py-2 text-sm text-white/60 hover:text-white"
+                        className="block rounded-lg px-3 py-2 text-xs text-neutral-600 hover:text-black"
                       >
                         {child.label}
                       </Link>
@@ -125,15 +104,10 @@ export function Navbar() {
               </div>
             ))}
 
-            <div className="mt-3 flex items-center justify-between rounded-lg px-2 py-2">
-              <span className="text-sm font-medium text-white/60">Appearance</span>
-              <ThemeToggle />
-            </div>
-
             <Link
               href={siteConfig.primaryCta.href}
               onClick={() => setOpen(false)}
-              className="mt-1 rounded-full bg-mw-mint px-5 py-2.5 text-center text-sm font-semibold text-mw-ink"
+              className="mt-3 rounded-xl bg-[#1a2323] px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-white"
             >
               {siteConfig.primaryCta.label}
             </Link>

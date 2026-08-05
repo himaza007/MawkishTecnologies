@@ -39,7 +39,7 @@ export function CtaBand() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/contact"
-            className="rounded-full bg-mw-mint px-6 py-3 text-sm font-semibold text-mw-ink transition hover:bg-white"
+            className="rounded-full bg-mw-mint px-6 py-3 text-sm font-semibold text-mw-void transition hover:bg-white hover:text-mw-void"
           >
             Schedule a Consultation
           </Link>

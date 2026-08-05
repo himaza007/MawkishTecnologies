@@ -6,7 +6,7 @@ export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
 export default function Icon() {
-  const logoPath = join(process.cwd(), "public", "images", "brand", "logo-icon.png");
+  const logoPath = join(process.cwd(), "public", "images", "brand", "logo-mark.png");
   const logoBase64 = readFileSync(logoPath).toString("base64");
   const logoDataUri = `data:image/png;base64,${logoBase64}`;
 
