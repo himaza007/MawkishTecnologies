@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image"; // ✅ Use Next.js Image
-import { CtaBand, Eyebrow, PageHero, Section } from "@/components/ui";
-import { coreValues, regions } from "@/lib/site-data";
+import Image from "next/image";
+import { CtaBand, Section } from "@/components/ui";
+import { regions } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "About Us | Mawkish Technologies",
@@ -9,227 +9,253 @@ export const metadata: Metadata = {
     "Mawkish Technologies bridges the gap between technology and business strategy to deliver measurable outcomes.",
 };
 
+function IconStrategy({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
+      <path
+        d="M4 20V10M12 20V4M20 20v-6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function IconPlatform({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+function IconTeam({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className}>
+      <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="17" cy="9" r="2.4" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8.2 5 2.4 5 5.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+const cultureCards = [
+  {
+    title: "Strategy-First",
+    icon: IconStrategy,
+    body: "We start with business objectives, not technology preferences — the platform is chosen to fit the strategy, never the other way around.",
+  },
+  {
+    title: "Platform Agnostic",
+    icon: IconPlatform,
+    body: "SAP, Salesforce, and Odoo each solve different problems. We recommend whichever fits your growth stage, not whichever we're most incentivized to sell.",
+    badges: ["SAP", "Salesforce", "Odoo"],
+  },
+  {
+    title: "Collaborative Energy",
+    icon: IconTeam,
+    body: "A friendly, high-energy, team-centric culture — we work closely with clients as partners, not vendors, for the long haul.",
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
-      {/* SECTION 1: FULL-HEIGHT HERO SPLIT (Refactored from Image 4) */}
-      {/* Replaces the standard PageHero with a custom full-bleed layout */}
-      <div className="w-full h-screen grid grid-cols-1 lg:grid-cols-2 bg-[#000100]">
-        <div className="h-full relative overflow-hidden order-last lg:order-first">
-          {/* Main Context Image (e.g., modern office lobby or cityscape) */}
-          <Image 
-            src="/images/demo/image3.jpeg"
+      {/* SECTION 1: Hero Split (50/50 full-bleed) */}
+      <div className="grid h-screen w-full grid-cols-1 bg-[#000100] lg:grid-cols-2">
+        <div className="relative order-last h-full overflow-hidden lg:order-first">
+          <Image
+            src="https://zql0rfjwszzixew9.public.blob.vercel-storage.com/background/untitled-03672.JPG"
             alt="Mawkish Vision"
-            className="w-full h-full object-cover"
             fill
             priority
+            className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#000100] via-[#000100]/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#000100] via-transparent to-transparent" />
         </div>
-        <div className="flex flex-col justify-center px-10 lg:px-20 py-20 bg-[#080d0c] border-l border-white/5">
-          <PageHero
-            eyebrow="About Mawkish"
-            title="Business outcomes first. Technology second."
-            description="We were founded on a simple belief: technology projects should create measurable business outcomes, not just deploy software."
-          />
+        <div className="flex flex-col justify-center border-l border-white/10 bg-[#080d0c] px-8 py-20 lg:px-16">
+          <span className="text-xs font-semibold uppercase tracking-[0.22em] text-mw-mint">
+            About Mawkish
+          </span>
+          <h1 className="mt-5 font-display text-4xl font-bold leading-[1.1] tracking-tight text-white lg:text-5xl">
+            Business outcomes first. Technology second.
+          </h1>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-300">
+            We bridge business strategy and technology — delivering high-impact ERP, CRM, and AI
+            solutions that drive real transformation.
+          </p>
         </div>
       </div>
 
-      {/* SECTION 2: THE APPROACH & GLASS VALUES (Refactored from Image 5 & 6) */}
-      <section className="bg-black py-24">
-        <Section>
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            {/* Column 1: Foundational Story (Left) */}
-            <div className="space-y-6">
-              <Eyebrow>Founding Story</Eyebrow>
-              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-                Bridging the Gap<br /> in Transformation.
-              </h2>
-              <div className="mt-8 space-y-5 text-gray-300 text-lg leading-relaxed max-w-2xl">
-                <p>
-                  Organizations invest heavily in ERP, CRM, and digital initiatives but often
-                  struggle to realize expected value due to misalignment with business objectives. 
-                  Mawkish was established to bridge that gap, prioritizing strategic 
-                  advisory before execution.
-                </p>
-                <p>
-                  Today, we collaborate across industries to modernize operations, improve visibility,
-                  and accelerate growth through high-impact enterprise technology.
-                </p>
-              </div>
-            </div>
-            {/* Column 2: Platform-Agnostic Philosophy (Right) */}
-            <div className="space-y-6 lg:border-l lg:border-white/5 lg:pl-16 py-8 lg:py-0">
-               <Eyebrow>Why SAP, Salesforce & Odoo</Eyebrow>
-              <h2 className="font-display text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-                Strategy-First,<br/> Platform-Agnostic.
-              </h2>
-              <p className="mt-8 text-gray-300 text-lg leading-relaxed max-w-xl">
-                 Technology should adapt to the business, not the other way around. SAP, 
-                 Salesforce, and Odoo each address unique growth stages: enterprise scale, 
-                 customer engagement, and flexible integration. Our approach focuses first 
-                 on understanding your challenges, then recommending the right solution for 
-                 your long-term objectives.
-              </p>
-            </div>
+      {/* SECTION 2: Culture & Principles — glass card grid */}
+      <section className="bg-black">
+        <Section className="!py-12 lg:!py-16">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-mw-mint">
+              Our Culture
+            </span>
+            <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-white lg:text-5xl">
+              Our Culture &amp; Principles.
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-gray-300">
+              A collaborative, high-energy environment built around long-term client outcomes and
+              innovation.
+            </p>
           </div>
 
-          {/* New Core Values Section with Glassmorphism */}
-          <div className="mt-32 pt-20 border-t border-white/5">
-            <div className="max-w-3xl mb-16">
-              <Eyebrow>Core Values</Eyebrow>
-              <h2 className="mt-5 font-display text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-                Six principles that guide how we work.
-              </h2>
-            </div>
-            {/* Apply refined Glass styling (border, background, backdrop-blur) */}
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {coreValues.map((v, i) => (
-                <div key={v.title} className="rounded-3xl border border-white/10 p-8 bg-white/[0.02] backdrop-blur-xl transition hover:border-emerald-500/20 hover:shadow-emerald-500/10">
-                  <div className="flex items-center gap-4">
-                    <span className="font-display text-2xl font-bold text-emerald-400">0{i + 1}</span>
-                    <h3 className="font-display text-2xl font-bold text-white tracking-tight">{v.title}</h3>
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {cultureCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.title}
+                  className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl transition hover:border-mw-mint/30 hover:bg-white/[0.04]"
+                >
+                  <div className="grid h-12 w-12 place-items-center rounded-2xl border border-mw-mint/25 bg-mw-mint/5 text-mw-mint">
+                    <Icon />
                   </div>
-                  <p className="mt-6 text-base leading-relaxed text-gray-400">{v.description}</p>
+                  <h3 className="mt-6 font-display text-xl font-bold tracking-tight text-white">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-400">{card.body}</p>
+                  {card.badges && (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {card.badges.map((b) => (
+                        <span
+                          key={b}
+                          className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-mw-mint/90"
+                        >
+                          {b}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </Section>
       </section>
 
-      {/* SECTION 3: VISION & THE GLASS TABLE (Refactored from Image 7) */}
-      <section className="mw-dark-section mw-glow-grid border-t border-white/10 relative overflow-hidden py-24">
-         {/* Abstract geometric shapes or network graphic blending behind the table */}
-        <Section className="relative z-10">
-          <div className="grid gap-16 lg:grid-cols-12">
-            <div className="lg:col-span-5 flex flex-col justify-center">
-              <Eyebrow>5-Year Vision</Eyebrow>
-              <h2 className="mt-5 font-display text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-                The Most Trusted Transformation Partner in South Asia & the Middle East.
-              </h2>
-              <p className="mt-8 text-white/70 text-lg leading-relaxed max-w-xl">
-                 Mawkish aims to expand capabilities across ERP, CRM, AI, cloud, and managed 
-                 services throughout Sri Lanka, India, and the Middle East, becoming the firm
-                 known for delivering high-impact business outcomes.
+      {/* SECTION 3: Culture / environment showcase — full-width image band */}
+      <section className="bg-black">
+        <Section className="!py-0 lg:!py-0">
+          <div className="relative h-[450px] overflow-hidden rounded-3xl border border-white/10">
+            <Image
+              src="https://zql0rfjwszzixew9.public.blob.vercel-storage.com/background/untitled-03612.JPG"
+              alt="Mawkish team and workspace"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute bottom-6 left-6 max-w-xs rounded-2xl border border-white/15 bg-black/40 p-5 backdrop-blur-xl">
+              <p className="text-sm font-medium leading-relaxed text-white">
+                Friendly, collaborative, and innovation-driven culture.
               </p>
             </div>
-
-            {/* Column 2: Regional Presence Table as Glass Element */}
-            <div className="lg:col-span-7 bg-black/[0.1] rounded-3xl p-1 shadow-inner border border-white/5 backdrop-blur-2xl">
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[700px] text-left text-sm">
-                  <thead>
-                    <tr className="border-b border-white/10 text-white/50">
-                      <th className="px-6 py-4 font-medium">Region</th>
-                      <th className="px-6 py-4 font-medium">Active Market</th>
-                      <th className="px-6 py-4 font-medium">Presence</th>
-                      <th className="px-6 py-4 font-medium">Focus</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {regions.map((r) => (
-                      <tr key={r.region} className="border-b border-white/5 text-white/80 last:border-0 hover:bg-white/[0.02]">
-                        <td className="px-6 py-5.5 font-semibold text-white">{r.region}</td>
-                        <td className="px-6 py-5.5">
-                          {r.activeMarket ? (
-                            <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-400">
-                              Active
-                            </span>
-                          ) : (
-                            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/50">
-                              Target
-                            </span>
-                          )}
-                        </td>
-                        <td className="px-6 py-5.5">{r.presence}</td>
-                        <td className="px-6 py-5.5">{r.focus}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
         </Section>
       </section>
 
-      {/* SECTION 4: LEADERSHIP AUTHORITY (Refactored from Image 8 & 9) */}
-      <section className="bg-black py-24">
-        <Section className="space-y-24">
-          <div className="max-w-3xl mb-12">
-            <Eyebrow>Leadership</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl lg:text-5xl font-bold text-white tracking-tight leading-[1.1]">Meet the team.</h2>
+      {/* SECTION 4: Leadership — streamlined, image + glass bio card */}
+      <section className="bg-black">
+        <Section className="!py-12 lg:!py-16 space-y-16">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-mw-mint">
+              Leadership
+            </span>
+            <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-white lg:text-5xl">
+              Leadership.
+            </h2>
           </div>
 
-          {/* Leadership Spotlight 1: Chairman (Hatim Malick) */}
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <div className="h-full relative overflow-hidden rounded-3xl aspect-[16/10] lg:aspect-auto">
-              <Image 
-                src="/images/brand/malick.JPG" 
+          {/* Chairman */}
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div className="relative h-[420px] overflow-hidden rounded-3xl border border-white/10">
+              <Image
+                src="/images/brand/malick.JPG"
                 alt="Hatim Malick - Chairman"
-                className="w-full h-full object-cover"
                 fill
+                className="object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 to-transparent" />
             </div>
-            <div className="p-12 rounded-3xl bg-[#080d0c] border border-white/5 flex flex-col justify-center min-h-[500px]">
-              <div className="flex items-center gap-6 mb-10">
-                <div className="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-mw-primary font-display text-2xl font-bold text-white shadow-lg">
-                  HM
-                </div>
-                <div>
-                  <div className="font-display text-3xl font-bold text-white tracking-tight">Hatim Malick</div>
-                  <div className="text-lg text-emerald-400 font-medium">Chairman, Mawkish Group</div>
-                </div>
+            <div className="flex min-h-[420px] flex-col justify-center rounded-3xl border border-white/10 bg-white/[0.02] p-10 backdrop-blur-xl">
+              <div className="font-display text-2xl font-bold tracking-tight text-white">
+                Hatim Malick
               </div>
-              <div className="mt-5 space-y-5 text-gray-300 text-lg leading-relaxed max-w-xl">
-                 Hatim Malick is the Chairman of the Mawkish Group, providing visionary 
-                 leadership across the organization’s diversified portfolio. His deep 
-                 expertise in strategic oversight guides Mawkish Technologies toward 
-                 sustainable growth and long-term partnerships across the region.
-              </div>
+              <div className="mt-1 text-sm font-medium text-mw-mint">Chairman, Mawkish Group</div>
+              <p className="mt-5 text-base leading-relaxed text-gray-300">
+                Provides strategic oversight across Mawkish Group&apos;s portfolio, guiding long-term
+                regional growth and enterprise partnerships across South Asia and the Middle East.
+              </p>
             </div>
           </div>
 
-          {/* Leadership Spotlight 2: CEO (Michael Gunawardena) with integrated quote */}
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center pt-24 border-t border-white/5">
-            <div className="p-12 rounded-3xl bg-[#080d0c] border border-white/5 flex flex-col justify-center min-h-[500px]">
-               <div className="flex items-center gap-6 mb-10">
-                 <div className="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-mw-primary font-display text-2xl font-bold text-white shadow-lg">
-                    MG
-                  </div>
-                  <div>
-                    <div className="font-display text-3xl font-bold text-white tracking-tight">Michael Gunawardena</div>
-                    <div className="text-lg text-emerald-400 font-medium">Chief Executive Officer</div>
-                  </div>
-               </div>
-               
-               {/* INTEGRATE CEO BIOGRAPHY WITH IMAGES & MAKE IT CONCISE (Image 9) */}
-               <div className="mt-5 space-y-5 text-gray-300 text-lg leading-relaxed max-w-xl">
-                  <p>Michael Gunawardena is the CEO of Mawkish Technologies, bringing over 13 years of sales,
-                    marketing, business operations, and client management expertise to the firm.</p>
-                  <p>With a practical approach focused on business transformation, Michael works closely with clients to
-                     modernize operations, improve visibility, and accelerate growth using enterprise technology platforms
-                     like SAP, Salesforce, and Odoo.</p>
-                  <p>He is responsible for leading high-performing teams, expanding strategic partnerships, and 
-                    driving the company's growth strategy across South Asia and the Middle East.</p>
-               </div>
+          {/* CEO */}
+          <div className="grid gap-10 border-t border-white/5 pt-12 lg:grid-cols-2 lg:items-center">
+            <div className="order-2 flex min-h-[420px] flex-col justify-center rounded-3xl border border-white/10 bg-white/[0.02] p-10 backdrop-blur-xl lg:order-1">
+              <div className="font-display text-2xl font-bold tracking-tight text-white">
+                Michael Gunawardena
+              </div>
+              <div className="mt-1 text-sm font-medium text-mw-mint">Chief Executive Officer</div>
+              <p className="mt-5 text-base leading-relaxed text-gray-300">
+                13+ years of leadership in business operations, client management, and enterprise
+                transformation. Michael leads Mawkish&apos;s growth strategy and multi-platform advisory
+                across SAP, Salesforce, and Odoo.
+              </p>
             </div>
-
-             {/* INTEGRATE IMAGE 8 (REPLACE ME SPOT) with michael.png */}
-            <div className="h-full relative overflow-hidden rounded-3xl aspect-[16/10] lg:aspect-auto">
-              <Image 
-                src="/images/brand/michael.JPG" 
+            <div className="relative order-1 h-[420px] overflow-hidden rounded-3xl border border-white/10 lg:order-2">
+              <Image
+                src="/images/brand/michael.JPG"
                 alt="Michael Gunawardena - CEO"
-                className="w-full h-full object-cover"
                 fill
+                className="object-cover"
               />
-              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/30 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/60 to-transparent" />
             </div>
           </div>
-          
-          
+        </Section>
+      </section>
+
+      {/* SECTION 5: Regional footprint — clean glass badge list */}
+      <section className="mw-dark-section border-t border-white/10">
+        <Section className="!py-12 lg:!py-16">
+          <div className="max-w-2xl">
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-mw-mint">
+              Regional Footprint
+            </span>
+            <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-white lg:text-5xl">
+              Where we operate.
+            </h2>
+          </div>
+
+          <div className="mt-12 flex flex-wrap gap-3">
+            {regions.map((r) => (
+              <div
+                key={r.region}
+                className="flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.02] px-5 py-3 backdrop-blur-xl"
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    r.activeMarket ? "bg-mw-mint" : "bg-white/30"
+                  }`}
+                />
+                <span className="text-sm font-semibold text-white">{r.region}</span>
+                <span className="text-xs text-white/50">{r.presence}</span>
+              </div>
+            ))}
+          </div>
         </Section>
       </section>
 

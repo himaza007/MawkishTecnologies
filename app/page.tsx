@@ -102,6 +102,14 @@ export default function Home() {
                   and AI — architected around how your business actually runs.
                 </p>
               </Reveal>
+              <Reveal delay={150} className="mt-10 overflow-hidden rounded-3xl border border-white/10 shadow-[0_0_40px_rgba(127,217,180,0.08)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://zql0rfjwszzixew9.public.blob.vercel-storage.com/background/bg6.JPG"
+                  alt=""
+                  className="h-72 w-full object-cover sm:h-80 lg:h-96"
+                />
+              </Reveal>
             </div>
           </div>
 

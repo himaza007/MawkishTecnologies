@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { PageWatermark } from "@/components/PageWatermark";
 import { SiteLoader } from "@/components/SiteLoader";
+import Script from "next/script";
 
 // Montserrat — main/heading text. Clean geometric letterforms.
 const montserrat = Montserrat({
@@ -70,7 +71,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
         <ThemeProvider>
           {/* Splash sits above absolutely everything, including the navbar,
               and fades out once the page is ready — the navbar is already
