@@ -74,7 +74,7 @@ export function SiteLoader() {
         <div className="mw-loader-bar relative mt-9 h-px w-40 overflow-hidden bg-white/10">
           <span className="block h-full w-full bg-mw-mint" />
         </div>
-        <p className="mw-hud relative mt-4 text-[10px] text-white/35">Mawkish Technologies</p>
+        <p className="mw-hud relative mt-4 text-[10px] text-white/35"></p>
       </div>
     </div>
   );

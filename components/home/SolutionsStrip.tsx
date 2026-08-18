@@ -1,10 +1,10 @@
 const solutions = [
-  { name: "Microsoft", logo: "/images/solutions/Microsoft.webp" },
-  { name: "AWS", logo: "/images/solutions/AWS.png" },
-  { name: "Google Cloud", logo: "/images/solutions/Google Cloud.png" },
-  { name: "Salesforce", logo: "/images/solutions/Salesforce Logo.jpeg" },
-  { name: "Odoo", logo: "/images/solutions/odoo_logo.svg" },
-  { name: "Swyftflo", logo: "/images/solutions/Swyftflo.png" },
+  { name: "Microsoft", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/Microsoft.webp" },
+  { name: "AWS", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/AWS.png" },
+  { name: "Google Cloud", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/Google%20Cloud.png" },
+  { name: "Salesforce", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/Salesforce%20Logo.jpeg" },
+  { name: "Odoo", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/odoo_logo.svg" },
+  { name: "Swyftflo", logo: "https://zql0rfjwszzixew9.public.blob.vercel-storage.com/solutions/Swyftflo.png" },
 ];
 
 export function SolutionsStrip() {

@@ -166,7 +166,7 @@ export default function AboutPage() {
           <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
             <div className="h-full relative overflow-hidden rounded-3xl aspect-[16/10] lg:aspect-auto">
               <Image 
-                src="/malick.png" // 🆕 Use malick.png image
+                src="/images/brand/malick.JPG" 
                 alt="Hatim Malick - Chairman"
                 className="w-full h-full object-cover"
                 fill
@@ -220,7 +220,7 @@ export default function AboutPage() {
              {/* INTEGRATE IMAGE 8 (REPLACE ME SPOT) with michael.png */}
             <div className="h-full relative overflow-hidden rounded-3xl aspect-[16/10] lg:aspect-auto">
               <Image 
-                src="/michael.png" // 🆕 Use michael.png image
+                src="/images/brand/michael.JPG" 
                 alt="Michael Gunawardena - CEO"
                 className="w-full h-full object-cover"
                 fill

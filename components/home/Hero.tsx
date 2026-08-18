@@ -3,10 +3,17 @@
 import Link from "next/link";
 import { HeroScene } from "./HeroScene";
 import { StatCounter } from "./StatCounter";
-import { IconStack, IconGrid, IconOrbit, IconShield } from "./icons";
-import { siteConfig, stats } from "@/lib/site-data";
+import { IconStack, IconGrid, IconOrbit, IconShield, IconSpark } from "./icons";import { siteConfig, stats } from "@/lib/site-data";
 
-const ecosystem = ["SAP", "Salesforce", "Odoo", "AI Systems"];
+const ecosystem = [
+  { name: "SAP", logo: "/images/solutions/AWS.png" },
+  { name: "Salesforce", logo: "/images/solutions/Google Cloud.png" },
+  { name: "Odoo", logo: "/images/solutions/odoo_logo.svg" },
+  { name: "Salesforce", logo: "/images/solutions/Salesforce Logo.jpeg" },
+  { name: "Swyftflo", logo: "/images/solutions/Swyftflo.png" },
+  { name: "Microsoft", logo: "/images/solutions/Microsoft.webp" },
+  { name: "AI Systems", logo: null },
+];
 
 const statIcons = [IconStack, IconGrid, IconOrbit, IconShield];
 
@@ -34,10 +41,6 @@ export function Hero() {
           className="pointer-events-none absolute left-1/2 top-[42%] h-[280px] w-[92%] max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-full bg-mw-mint/20 blur-[110px]"
         />
 
-        <span className="mw-hud relative rounded-full border border-mw-mint/30 bg-mw-mint/10 px-4 py-1.5 text-[10px] text-mw-mint sm:text-xs">
-          Architecting Digital Transformation
-        </span>
-
         <h1 className="relative mt-7 max-w-4xl font-display text-4xl leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-[76px] lg:leading-[1.03] lg:tracking-[-2.5px]">
           Technology that creates real <span className="mw-text-gradient">business outcomes</span>
         </h1>
@@ -52,13 +55,18 @@ export function Hero() {
         {/* Live ecosystem ticker — small scrolling credibility strip */}
         <div className="mw-edge-fade relative mt-6 w-full max-w-sm overflow-hidden">
           <div className="mw-marquee-track flex w-max items-center gap-3">
-            {[...ecosystem, ...ecosystem].map((name, i) => (
+            {[...ecosystem, ...ecosystem].map((item, i) => (
               <span
-                key={`${name}-${i}`}
-                className="mw-hud flex items-center gap-2 whitespace-nowrap rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[10px] text-white/70"
+                key={`${item.name}-${i}`}
+                title={item.name}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white shadow-sm"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-mw-mint" />
-                {name}
+                {item.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={item.logo} alt={item.name} className="h-5 w-5 object-contain" />
+                ) : (
+                  <IconSpark className="h-4 w-4 text-mw-void" />
+                )}
               </span>
             ))}
           </div>
